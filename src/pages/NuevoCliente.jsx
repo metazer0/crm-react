@@ -2,22 +2,36 @@ import { useNavigate, Form, useActionData } from "react-router-dom";
 import Formulario from "../components/Formulario";
 import Error from "../components/Error";
 
-export async function action({request}){
-  const formData = await request.formData()
-  
-  const datos = Object.fromEntries(formData)
+export async function action({ request }) {
+  const formData = await request.formData();
 
-  const errores = []
-  if(Object.values(datos).includes("")){
-    errores.push('Todos los campos son obligatorios!')
+  const datos = Object.fromEntries(formData);
+
+  const email = formData.get("email");
+
+  //Validacion
+
+  const errores = [];
+  if (Object.values(datos).includes("")) {
+    errores.push("Todos los campos son obligatorios!");
+  }
+
+  let regex = new RegExp(
+    "([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(.[!#-'*+/-9=?A-Z^-~-]+)*|[[\t -Z^-~]*])"
+  );
+
+  // si no se niega, no va a entrar al code, se tiene que negar
+
+  if(!regex.test(email)){
+    errores.push('Email invalido')
   }
 
   //retornar datos si hay errores
-  if(Object.keys(errores).length){
+  if (Object.keys(errores).length) {
     return errores;
   }
 
-  console.log(errores)
+  console.log(errores);
 }
 
 function NuevoCliente() {
@@ -41,12 +55,10 @@ function NuevoCliente() {
       </div>
 
       <div className="bg-white shadow rounded-md md:w-3/4 mx-auto px-5 py-10">
-
-        //repasar esto
-        
-        {errores?.length && errores.map((error, i) => <Error key={i}>{error}</Error>)}
-
-        <Form method="post">
+        {/* repasar esto */}
+        {errores?.length &&
+          errores.map((error, i) => <Error key={i}>{error}</Error>)}
+        <Form method="post" noValidate>
           <Formulario />
           <input
             type="submit"
