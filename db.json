@@ -42,6 +42,14 @@
       "telefono": "99113218",
       "notas": "employee",
       "id": 6
+    },
+    {
+      "nombre": "Carlos",
+      "empresa": "Chucky",
+      "email": "carlos@gmail.com",
+      "telefono": "1122334455",
+      "notas": "aaa",
+      "id": 7
     }
   ]
 }
