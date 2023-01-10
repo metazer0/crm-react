@@ -24,12 +24,14 @@ const router = createBrowserRouter([
       {
         path:'/clientes/nuevo',
         element: <NuevoCliente/>,
-        action: nuevoClienteAction
+        action: nuevoClienteAction,
+        errorElement: <ErrorPage/>
       },
       {
         path:'/clientes/:clienteId/edit',
         element: <EditarCliente/>,
-        loader:editarClienteLoader
+        loader:editarClienteLoader,
+        errorElement: <ErrorPage/>
       }
     ]
   },

@@ -5,6 +5,13 @@ export async function obtenerClientes(){
     return result;
 }
 
+export async function obtenerCliente(id){
+    //metodo por default del fetch es GET
+    const respuesta = await fetch(`${import.meta.env.VITE_API_URL}/${id}`)
+    const result = await respuesta.json()
+    return result;
+}
+
 export async function agregarCliente(datos){
     try {
         const respuesta = await fetch(import.meta.env.VITE_API_URL, {
